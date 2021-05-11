@@ -23,7 +23,7 @@ setup_twitter_oauth("oOKlUQaGjuxX9cKTIMKsGf3yY", # Consumer Key (API Key)
 #registerTwitterOAuth(cred)
 
 Tweets <- userTimeline('realDonaldTrump', n = 3000,includeRts = T)
-
+# we can extract anyone's tweets just paste the twitter ID and here you go .
 TweetsDF <- twListToDF(Tweets)
 View(TweetsDF)
 write.csv(TweetsDF, "Tweets.csv")
