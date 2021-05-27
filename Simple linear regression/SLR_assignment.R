@@ -28,7 +28,7 @@ predict(reg,interval="predict")
 
 #ggplot for adding regression line for data
 
-
+library(ggplot2)
 ggplot(data = cal_wt,aes(x=Calories.Consumed,y=Weight.gained..grams.))+
   geom_point(color = "BLUE")+
   geom_line(color ="red",data = cal_wt, aes(x=Calories.Consumed,y=pred))
@@ -391,7 +391,9 @@ ggplot(data = ye_sh,aes(x=YearsExperience,y=Salary))+
 
 # Adjusted R-Squared = 0.9538 
 #Multiple R -Squared Value = 0.957
-
+#Quad_mod is best
+rmse_quad <- sqrt(mean(pred_quad-ye_sh$Salary)^2)
+rmse_quad
 # Cubic model
 poly_mod <- lm(Salary~YearsExperience+I(YearsExperience^2)+I(YearsExperience^3),data=ye_sh)
 summary(poly_mod) # 0.9636
