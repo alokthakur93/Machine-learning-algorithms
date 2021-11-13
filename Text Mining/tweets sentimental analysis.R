@@ -55,10 +55,32 @@ inspect(text.corpus[1:5])
 
 #build a term document matrix
 text.tdm <- TermDocumentMatrix(text.corpus)
-
+text.tdm
 text.dtm <- t(text.tdm)
 text.tdm <- as.matrix(text.tdm) 
 text.tdm[1:10,1:10]
+
+text.dtm <- t(text.tdm)
+rowTotals <- apply(text.dtm, 1, sum)
+
+dtm.new   <- text.dtm[rowTotals > 0, ]
+dim(dtm.new)
+
+## topic extraction using LDA
+lda <- LDA(dtm.new, 10) # find 10 topics
+term <- terms(lda, 10) # first 10 terms of every topic
+term
+
+
+tops <- terms(lda)
+
+tb <- table(names(tops), unlist(tops))
+tb <- as.data.frame.matrix(tb)
+
+cls <- hclust(dist(tb), method = 'ward.D2') #ward is absolute distance
+
+par(family = "HiraKakuProN-W3")
+plot(cls)
 
 # Bar plot
 words <- rowSums(text.tdm)
